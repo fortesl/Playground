@@ -1,0 +1,43 @@
+<!--  -->
+<h1>{{ ('enter login information') | toTitlecase}}</h1>
+<form class="login-form" [formGroup]="form" (ngSubmit)="submit(form.value)">
+  <div formGroupName="login">
+      <mat-form-field class="username">
+          <input
+            appChangeTo
+            formControlName="username"
+            matInput
+            placeholder="Username">
+          <div *ngIf="username.pending">
+            Pending validation
+          </div>
+          <mat-error *ngIf="username.invalid && username.errors['required']">
+            Username is required
+          </mat-error>
+          <mat-error *ngIf="username.invalid && username.errors['minlength']">
+              Username must be at least {{ username.errors['minlength.requiredLength'] }} characters
+          </mat-error>
+          <mat-error *ngIf="username.invalid && username.errors['cannotContainDashes']">
+              Username cannot contain dashes
+          </mat-error>
+          <mat-error *ngIf="username.invalid && username.errors['mustBeLuis']">
+              Must be luis
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="password">
+          <input
+            formControlName="password"
+            type="password"
+            matInput
+            placeholder="Password">
+            <mat-error *ngIf="password.invalid && password.errors['required']">
+              Password is required
+            </mat-error>
+            <mat-error *ngIf="password.invalid && password.errors['minlength']">
+                Password must be at least {{ password.errors['minlength.requiredLength'] }} characters
+            </mat-error>
+        </mat-form-field>
+  </div>
+  <button [disabled]="form.pending || form.untouched || form.invalid" class="submit" mat-raised-button type=submit>Submit</button>
+  <mat-error *ngIf="loginFailed">Login failed!</mat-error>
+</form>

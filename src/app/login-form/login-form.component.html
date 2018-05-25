@@ -1,0 +1,28 @@
+<!--  -->
+<form class="login-form" #f="ngForm" (ngSubmit)="submit(f.value)">
+  <div ngModelGroup="login">
+      <mat-form-field class="username">
+          <input
+            #username="ngModel"
+            ngModel
+            name="username"
+            required
+            minlength="3"
+            matInput
+            placeholder="Username">
+        </mat-form-field>
+        <mat-form-field class="password">
+          <input
+            #password="ngModel"
+            ngModel
+            name="password"
+            required
+            minlength="8"
+            type="password"
+            matInput
+            placeholder="Password">
+        </mat-form-field>
+  </div>
+  <button [disabled]="f.untouched || f.invalid" class="submit" mat-raised-button type=submit>Submit</button>
+  <mat-error *ngIf="loginFailed">Login failed!</mat-error>
+</form>
